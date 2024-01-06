@@ -8,6 +8,9 @@
 #include "math/vector3.h"
 
 class Package;
+class DroneObserver;
+class BatteryDecorator;
+class RechargeStation;
 
 // Represents a drone in a physical system.
 // Drones move using euler integration based on a specified
@@ -29,7 +32,6 @@ class Drone : public IEntity {
    * @brief Destructor
    */
   ~Drone();
-
 
   /**
    * @brief Gets the next delivery in the scheduler
@@ -54,14 +56,40 @@ class Drone : public IEntity {
    */
   Drone& operator=(const Drone& drone) = delete;
 
+  /**
+   * @brief Sends situation to observer to print corresponding message
+   * @param situation an int representing what message switch case to trigger
+   */
+  void notify(int situation);
+
+  /**
+   * @brief Gets the linked package of the drone
+   * @return a pointer to the drone's current package
+   */
+  Package* getPackage();
+
+
+
+  /**
+   * @brief finds the nearest recharge station to the drone
+   */
+  void findRechargeStation();
+
+  /**
+   * @brief Calculates the shortest distance from the drone to one of the recharge stations
+   * @return a double representing the clostest distance to a recharge station
+   */
+  double calculateDistance(const Vector3& pos1, const Vector3& pos2) const;
+
  private:
   bool available = false;
   bool pickedUp = false;
   Package* package = nullptr;
   IStrategy* toPackage = nullptr;
   IStrategy* toFinalDestination = nullptr;
-  IStrategy* celebration1 = nullptr;
-  //IStrategy* celebration2 = nullptr;
+  DroneObserver* observer_ = nullptr;
+  BatteryDecorator* battery = nullptr;
+  IStrategy* toRechargeStation = nullptr;
 };
 
 #endif

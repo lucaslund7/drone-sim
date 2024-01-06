@@ -104,6 +104,9 @@ $( document ).ready(function() {
           //console.log(data);
           removeEntity(data.details.id);
         }
+        if (data.event == "Notify") {
+          notify(data);
+        }
       }
     }
   }
@@ -547,4 +550,11 @@ function onWindowResize() {
 
   // update the size of the renderer AND the canvas
   renderer.setSize( container.clientWidth, container.clientHeight );
+}
+
+function notify(data){
+  message = data.details["message"];
+  notifbar = document.getElementById("notification-bar");
+  notifbar.textContent += message;
+  notifbar.textContent += "\n";
 }

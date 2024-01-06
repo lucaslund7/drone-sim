@@ -3,12 +3,18 @@
 #include "DroneFactory.h"
 #include "PackageFactory.h"
 #include "RobotFactory.h"
+#include "HumanFactory.h"
+#include "HelicopterFactory.h"
+#include "RechargeStationFactory.h"
 
 SimulationModel::SimulationModel(IController& controller)
     : controller(controller) {
   entityFactory.AddFactory(new DroneFactory());
   entityFactory.AddFactory(new PackageFactory());
   entityFactory.AddFactory(new RobotFactory());
+  entityFactory.AddFactory(new HumanFactory());
+  entityFactory.AddFactory(new HelicopterFactory());
+  entityFactory.AddFactory(new RechargeStationFactory());
 }
 
 SimulationModel::~SimulationModel() {
@@ -30,6 +36,11 @@ IEntity* SimulationModel::createEntity(JsonObject& entity) {
     myNewEntity->linkModel(this);
     controller.addEntity(*myNewEntity);
     entities[myNewEntity->getId()] = myNewEntity;
+
+    if (RechargeStation* rechargeStation =
+    dynamic_cast<RechargeStation*>(myNewEntity)) {
+      rechargeStations.push_back(rechargeStation);
+    }
   }
 
   return myNewEntity;
@@ -85,6 +96,10 @@ const routing::IGraph* SimulationModel::getGraph() {
   return graph;
 }
 
+std::vector<RechargeStation*> SimulationModel::getRechargeStations() const {
+  return rechargeStations;
+}
+
 /// Updates the simulation
 void SimulationModel::update(double dt) {
   for (auto& [id, entity] : entities) {
@@ -115,4 +130,9 @@ void SimulationModel::removeFromSim(int id) {
     entities.erase(id);
     delete entity;
   }
+}
+
+void SimulationModel::sendEventThrough
+(const std::string& event, const JsonObject& details) {
+  controller.sendEventToView(event, details);
 }

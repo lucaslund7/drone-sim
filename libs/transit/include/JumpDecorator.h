@@ -1,23 +1,34 @@
-
+#ifndef JUMP_DECORATOR_H_
+#define JUMP_DECORATOR_H_
 
 #include "ICelebrationDecorator.h"
 
+/**
+ * @brief this class inhertis from the IStrategy class and is represents
+ * a celebration decorator where the entity will celebrate according to it.
+ */
 class JumpDecorator : public ICelebrationDecorator {
  public:
   /**
-   * @brief Jump decorator constructor that creates a jump decorator
-   * @param strategy Type IStrategy* that is the strategy to be used
-   **/
-  JumpDecorator(IStrategy* strategy = nullptr);
+   * @brief Construct a new Jump Decorator object
+   *
+   * @param[in] strategy the strategy to decorate onto
+   * @param[in] time how long to celebrate
+   * @param[in] jumpHeight how far up to jump
+   */
+  JumpDecorator(IStrategy* strategy, double time = 4, double jumpHeight = 10);
 
   /**
-   * @brief celebrate function that is used to make the entity jump
-   * @param entity Type IEntity* that is the entity to be moved
-   * @param dt type double is the time
-   **/
+   * @brief Make the entity celebrate with the jump behavior.
+   * 
+   * @param entity Entity to celebrate
+   * @param dt Delta Time
+   */
   void celebrate(IEntity* entity, double dt);
-
  private:
-  Vector3 position;
-  double jumpTime;
+  double jumpHeight = 10;
+  bool up = true;
+  double h = 0;
 };
+
+#endif  // JUMP_DECORATOR_H_

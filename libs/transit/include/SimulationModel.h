@@ -1,15 +1,17 @@
 #ifndef SIMULATION_MODEL_H_
 #define SIMULATION_MODEL_H_
 
+#include <deque>
+#include <map>
+#include <set>
+
 #include "CompositeFactory.h"
 #include "Drone.h"
 #include "IController.h"
 #include "IEntity.h"
+#include "RechargeStation.h"
 #include "Robot.h"
 #include "graph.h"
-#include <deque>
-#include <map>
-#include <set>
 
 //--------------------  Model ----------------------------
 
@@ -46,9 +48,9 @@ class SimulationModel {
 
   /**
    * @brief Removes entity with given ID from the simulation
-   * 
+   *
    * @param id of the entity to be removed
-  */
+   */
   void removeEntity(int id);
 
   /**
@@ -74,10 +76,25 @@ class SimulationModel {
    * @brief Returns the graph of the map
    *
    * @returns IGraph* graph pointer
-  */
+   */
   const routing::IGraph* getGraph();
 
+  /**
+   * @brief Calls sendEventToView directly to the controller
+   * @param event Type string that contains the command to be called in main.js.
+   * @param details Type JsonObject that contains a reference to the information
+   * to be sent to the front end.
+   * @returns Void
+   */
+  void sendEventThrough(const std::string& event, const JsonObject& details);
+
   std::deque<Package*> scheduledDeliveries;
+
+  /**
+   * @brief Gets the recharge stations in the simulation
+   * @return a vector of RechargeStation pointers
+   */
+  std::vector<RechargeStation*> getRechargeStations() const;
 
  protected:
   IController& controller;
@@ -86,6 +103,7 @@ class SimulationModel {
   void removeFromSim(int id);
   const routing::IGraph* graph;
   CompositeFactory entityFactory;
+  std::vector<RechargeStation*> rechargeStations;
 };
 
 #endif

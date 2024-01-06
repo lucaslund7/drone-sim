@@ -115,6 +115,12 @@ class IEntity {
    */
   virtual void update(double dt) = 0;
 
+  /**
+   * @brief Gets the linked model of the entity
+   * @return The simulation model linked to the entity
+   */
+  virtual SimulationModel* getModel();
+
  protected:
   SimulationModel* model = nullptr;
   int id = -1;

@@ -1,19 +1,18 @@
 #include "JumpDecorator.h"
 
-JumpDecorator::JumpDecorator(IStrategy* s) : ICelebrationDecorator(s) {}
+JumpDecorator::JumpDecorator(IStrategy* strategy, double time,
+  double jumpHeight)
+  : ICelebrationDecorator(strategy, time), jumpHeight(jumpHeight) {}
 
 void JumpDecorator::celebrate(IEntity* entity, double dt) {
-  position = entity->getPosition();
-  if (jumpTime < 0.2) {
-    entity->setPosition(position + Vector3(0.0, 0.5, 0.0));
-  } else if (jumpTime < 0.4) {
-    entity->setPosition(position - Vector3(0.0, 0.5, 0.0));
+  Vector3 step(0, entity->getSpeed() * dt, 0);
+  if (up) {
+    h += step.y;
+    entity->setPosition(entity->getPosition() + step);
+    if (h >= jumpHeight) up = false;
   } else {
-    entity->setPosition(position);
-    jumpTime = 0.0;
+    h -= step.y;
+    entity->setPosition(entity->getPosition() - step);
+    if (h <= 0) up = true;
   }
-
-  jumpTime += dt;
-  celebrationTime += dt;
-  return;
 }

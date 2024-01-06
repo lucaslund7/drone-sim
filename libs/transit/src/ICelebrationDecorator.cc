@@ -1,15 +1,25 @@
 #include "ICelebrationDecorator.h"
 
-ICelebrationDecorator::ICelebrationDecorator(IStrategy* s)
-    : strategy(s), celebrationTime(0.0) {}
+ICelebrationDecorator::ICelebrationDecorator(IStrategy* strategy, double time) {
+  this->strategy = strategy;
+  this->time = time;
+}
+
+ICelebrationDecorator::~ICelebrationDecorator() {
+  // Delete dynamically allocated variables
+  if (strategy) delete strategy;
+}
 
 void ICelebrationDecorator::move(IEntity* entity, double dt) {
-  if (strategy->isCompleted()) {
-    if (!(isCompleted())) {
-      celebrate(entity, dt);
-    }
-  } else {
+  if (!strategy->isCompleted()) {
     strategy->move(entity, dt);
+  } else if (!isCompleted()) {
+    celebrate(entity, dt);
+    time -= dt;
   }
 }
-bool ICelebrationDecorator::isCompleted() { return celebrationTime >= 4.0; }
+
+bool ICelebrationDecorator::isCompleted() {
+  return time <= 0;
+}
+

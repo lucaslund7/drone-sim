@@ -31,3 +31,7 @@ void Package::handOff() {
     owner->receive(this);
   }
 }
+
+std::string Package::getOwner() {
+  return owner->getName();
+}

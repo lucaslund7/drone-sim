@@ -1,19 +1,32 @@
-
+#ifndef SPIN_DECORATOR_H_
+#define SPIN_DECORATOR_H_
 
 #include "ICelebrationDecorator.h"
 
+/**
+ * @brief this class inhertis from the IStrategy class and is represents
+ * a celebration decorator where the entity will celebrate according to it.
+ */
 class SpinDecorator : public ICelebrationDecorator {
  public:
   /**
-   * @brief Spin decorator constructor that creates a spin decorator
-   * @param strategy Type IStrategy* that is the strategy to be used
-   **/
-  SpinDecorator(IStrategy* strategy = nullptr);
+   * @brief Construct a new Spin Decorator object
+   *
+   * @param[in] strategy the strategy to decorate onto
+   * @param[in] time how long to celebrate
+   * @param[in] spinSpeed multiplier for how fast to spin
+   */
+  SpinDecorator(IStrategy* strategy, double time = 4, double spinSpeed = 1);
 
   /**
-   * @brief celebrate function that is used to spin the entity
-   * @param entity Type IEntity* that is the entity to be moved
-   * @param dt type double is the time
-   **/
+   * @brief Move the entity with the spin behavior for 4 seconds.
+   * 
+   * @param entity Entity to move
+   * @param dt Delta Time
+   */
   void celebrate(IEntity* entity, double dt);
+ private:
+  double spinSpeed = 1;
 };
+
+#endif  // SPIN_DECORATOR_H_

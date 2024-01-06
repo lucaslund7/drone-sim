@@ -58,6 +58,8 @@ class Package : public IEntity {
 
   bool requiresDelivery = true;
 
+  std::string getOwner();
+
  private:
   Vector3 destination;
   std::string strategyName;

@@ -1,9 +1,9 @@
 #include "SpinDecorator.h"
 
-SpinDecorator::SpinDecorator(IStrategy* s) : ICelebrationDecorator(s) {}
+SpinDecorator::SpinDecorator(IStrategy* strategy, double time, double spinSpeed)
+  : ICelebrationDecorator(strategy, time), spinSpeed(spinSpeed) {}
+
 
 void SpinDecorator::celebrate(IEntity* entity, double dt) {
-    entity->rotate((0.5/dt)/360.0);
-    celebrationTime += dt;
-    return;
+  entity->rotate(dt*entity->getSpeed()*spinSpeed);
 }

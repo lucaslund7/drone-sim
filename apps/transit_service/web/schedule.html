@@ -69,6 +69,7 @@
         </div>
     </div>
     <div><input type="button" value="Schedule Delivery" onclick="schedule()"></div>
+    <div><input type="button" value="Add Human" onclick="addHuman()" style="margin-top: 10px;"></div>
 
     <div id="nameError"></div>
 
@@ -176,6 +177,25 @@
                 $("#map").html("");
                 $("#name").val("");
             }
+        }
+
+        var humanID = 1;
+        function addHuman() {
+            api.sendCommand("CreateEntity", {
+                "type": "human",
+                "name": "Human-" + humanID,
+                "mesh": "assets/model/human.glb",
+                "position": [700, 290, 400],
+                "scale": [0.005, 0.005, 0.005],
+                "rotation": [0, 0, 0, 0],
+                "direction": [1, 0, 0],
+                "speed": 10.0,
+                "radius": 1.0,
+                "start": 2.0,
+                "duration": 2.0,
+                "offset": [0, -0.5, 0]
+            });
+            humanID += 1;
         }
     </script>
 </body>
