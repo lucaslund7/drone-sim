@@ -61,8 +61,8 @@ Sprint Retrospective
     Our group chose to organize our sprints into two portions, one for the observer work and the other for the battery work. This worked well since it allowed clear distinctions about what category or feature each task fell under. Initially picking jobs using the Jira sprint guide worked well since it provided visual confirmation that each group member had a relatively equal amount of work. If tasked with doing this again there are two things we would likely change. First, think closely about how tasks fall relative to each other and plan them with your schedule. We ran into some scenerios where task X needed to be finished before task Y could start. If person Y has free time early into the sprint, before person X has free time, then person Y will be unable to make use of their time. Next, remembering to put non-programming aspects into the sprint. While we had included things like writing, testing, doxygen, and style guide in our sprints, we did not include things like UML creation or Write-up work, this lead to underestimating the work we had left at any given point.  
   
 Notification Feature:
-![notificaiton uml](https://github.umn.edu/umn-csci-3081-f23/team-010-56-hw4/blob/main/uml/notification_uml.png?raw=true) 
+![notificaiton uml](https://github.com/lucaslund7/drone-sim/blob/main/uml/notification_uml.png?raw=true) 
 
 
 Battery and RechargeStation Feature:
-![battery/rechargestation uml](https://github.umn.edu/umn-csci-3081-f23/team-010-56-hw4/blob/main/uml/Battery:RechargeStation.png?raw=true) 
+![battery/rechargestation uml](https://github.com/lucaslund7/drone-sim/blob/main/uml/Battery_RechargeStation.png?raw=true) 
